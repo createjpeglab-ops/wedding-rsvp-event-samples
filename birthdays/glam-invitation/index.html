@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A celestial black-and-blue glam birthday invitation and RSVP website sample." />
+  <title>Nova's Starlit Soirée — Glam Birthday Invitation Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Azeret+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#04050a;
+      --night:#080b14;
+      --night-2:#0c1120;
+      --blue:#a0ddfe;
+      --blue-dim:rgba(160,221,254,.62);
+      --blue-faint:rgba(160,221,254,.28);
+      --ivory:#ece5d6;
+      --orange:#ef5325;
+      --line:rgba(160,221,254,.22);
+      --script:'Pinyon Script','Snell Roundhand','Segoe Script',cursive;
+      --mono:'Azeret Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--black);color:var(--blue);font-family:var(--mono);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    img{max-width:100%;display:block}
+    .script{font-family:var(--script);font-weight:400;line-height:.9;margin:0}
+    .mono{font-family:var(--mono)}
+    .cap{text-transform:uppercase;letter-spacing:.28em}
+
+    /* starfield background layer */
+    .stars{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.7;animation:tw 4s infinite}
+    .sparkle-ico{display:inline-block;color:var(--blue);font-size:1.4rem;line-height:1}
+
+    /* topbar */
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,5vw,56px);transition:background .5s ease,padding .5s ease}
+    .topbar.solid{background:rgba(4,5,10,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:14px;padding-bottom:14px}
+    .brand{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-weight:700;font-size:.82rem;letter-spacing:.22em;line-height:1.15;max-width:230px;text-transform:uppercase}
+    .brand .lips{color:var(--orange);font-size:1.3rem;transform:translateY(1px)}
+    .topnav{display:flex;gap:clamp(16px,2.6vw,38px);font-size:.72rem;letter-spacing:.24em}
+    .topnav a{color:var(--blue);opacity:.8;text-transform:uppercase;transition:opacity .25s ease}
+    .topnav a:hover{opacity:1}
+    @media(max-width:720px){.brand{font-size:.68rem;max-width:170px}.topnav{gap:16px}.topnav a.hide-sm{display:none}}
+
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .25s ease,color .25s ease,transform .15s ease}
+    .btn-outline{border:1px solid var(--blue);color:var(--blue);background:transparent;border-radius:999px;padding:16px 34px}
+    .btn-outline:hover{background:var(--blue);color:var(--black)}
+    .btn-solid{border:0;background:var(--blue);color:var(--black);border-radius:999px;padding:15px 30px;font-weight:500}
+    .btn-solid:hover{background:#fff;transform:translateY(-1px)}
+
+    /* HERO */
+    .hero{position:relative;min-height:100vh;overflow:hidden;isolation:isolate;background:var(--black)}
+    .hero .stars{z-index:0}
+    .hero-media{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(560px,86vw);z-index:1;filter:drop-shadow(0 20px 60px rgba(0,0,0,.6));opacity:.95}
+    .hero-media img{width:100%;border-radius:6px}
+    .hero-title{position:absolute;top:20vh;left:0;right:0;text-align:center;z-index:2;padding:0 16px}
+    .hero-title .script{font-size:clamp(3.6rem,11vw,9rem);color:var(--blue);text-shadow:0 8px 40px rgba(160,221,254,.25)}
+    .hero-title .spk{color:var(--blue);font-size:clamp(1rem,2vw,1.6rem);letter-spacing:1rem;display:block;margin-bottom:-.2em}
+    /* corner captions */
+    .corner{position:absolute;z-index:3;font-size:.82rem;letter-spacing:.14em;line-height:1.7;color:var(--blue)}
+    .corner.tl{top:38vh;left:clamp(20px,5vw,56px);max-width:340px;text-align:justify}
+    .corner.tr{top:38vh;right:clamp(20px,5vw,56px);text-align:right}
+    .corner.bl{bottom:6vh;left:clamp(20px,5vw,56px);max-width:280px}
+    .corner.br{bottom:6vh;right:clamp(20px,5vw,56px);text-align:right;max-width:220px}
+    .hero-cta{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);z-index:4}
+    @media(max-width:760px){
+      .hero-title{top:14vh}
+      .corner{position:static;display:block;text-align:center!important;max-width:none;margin:0 auto}
+      .hero-captions{position:absolute;bottom:15vh;left:0;right:0;z-index:3;display:grid;gap:14px;padding:0 20px}
+      .hero-media{width:92vw;opacity:.5;bottom:auto;top:44vh}
+    }
+
+    /* generic section */
+    section{position:relative;padding:clamp(80px,12vw,150px) clamp(20px,5vw,56px);z-index:1}
+    .wrap{max-width:1140px;margin:0 auto}
+    .section-title{font-size:clamp(3rem,7vw,5.6rem);color:var(--blue);text-align:center}
+    .section-sub{max-width:600px;margin:26px auto 0;text-align:center;line-height:1.9;color:var(--blue);letter-spacing:.06em;font-size:.94rem}
+    .divider-star{text-align:center;margin:22px 0}
+
+    /* GILDED PARTICULARS — tilted invite card over photo */
+    .particulars{background:var(--black);overflow:hidden}
+    .particulars .layout{position:relative;display:grid;place-items:center;min-height:70vh}
+    .glam-photo{position:relative;width:min(720px,100%);aspect-ratio:16/11;border-radius:8px;overflow:hidden;transform:rotate(-6deg);box-shadow:0 40px 90px rgba(0,0,0,.6)}
+    .glam-photo img{width:100%;height:100%;object-fit:cover}
+    .invite-card{position:absolute;z-index:2;width:min(560px,86%);transform:rotate(-6deg);background:rgba(6,8,16,.86);backdrop-filter:blur(2px);border:1px solid var(--line);border-radius:14px;padding:38px 40px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+    .invite-card h3{font-family:var(--script);font-size:clamp(2.4rem,5vw,3.4rem);color:var(--blue);margin:0 0 14px;font-weight:400}
+    .invite-card .meta{font-size:.82rem;letter-spacing:.12em;color:var(--blue-dim);margin:0 0 24px}
+    @media(max-width:640px){.glam-photo,.invite-card{transform:rotate(-3deg)}.invite-card{padding:28px}}
+
+    /* SHIMMER — portrait + text */
+    .shimmer{background:var(--night)}
+    .shimmer .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,6vw,80px);align-items:center}
+    .frame{background:var(--ivory);padding:12px;border-radius:6px;transform:rotate(-3deg);box-shadow:0 30px 70px rgba(0,0,0,.5);max-width:440px}
+    .frame img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:3px}
+    .shimmer .txt .script{font-size:clamp(3rem,6vw,5rem);color:var(--blue)}
+    .shimmer .txt .spk{margin:22px 0}
+    .shimmer .txt p{color:var(--blue);line-height:2;letter-spacing:.06em;font-size:.95rem;max-width:46ch}
+    @media(max-width:820px){.shimmer .grid{grid-template-columns:1fr;justify-items:center;text-align:center}.frame{max-width:340px}.shimmer .txt p{margin-inline:auto}}
+
+    /* CELESTIAL GLAMOUR — dress code + photo scatter */
+    .celestial{background:var(--black);text-align:center;overflow:hidden}
+    .celestial .dome{position:absolute;top:0;left:0;right:0;height:60%;z-index:0;background:radial-gradient(120% 90% at 50% -30%,rgba(160,221,254,.10),transparent 60%)}
+    .scatter{position:relative;margin-top:60px;display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+    .scatter .frame{transform:rotate(var(--r,-4deg));max-width:230px;margin-top:var(--mt,0)}
+    .scatter .frame img{aspect-ratio:3/4}
+    @media(max-width:640px){.scatter .frame{max-width:44vw}}
+
+    /* CONSTELLATION — final RSVP */
+    .constellation{background:var(--night);text-align:center}
+    .rsvp-box{max-width:640px;margin:44px auto 0;text-align:left;border:1px solid var(--line);border-radius:14px;background:var(--night-2);padding:clamp(28px,5vw,52px)}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .field{display:grid;gap:9px}
+    .field.full{grid-column:1/-1}
+    label{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-dim)}
+    input,select,textarea{width:100%;min-height:52px;background:var(--black);border:1px solid var(--line);color:var(--blue);padding:14px 16px;border-radius:4px;outline:none;font-size:.9rem;transition:border-color .25s ease,box-shadow .25s ease}
+    textarea{min-height:104px;resize:vertical}
+    input::placeholder,textarea::placeholder{color:rgba(160,221,254,.35)}
+    input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(160,221,254,.15)}
+    .choice{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .choice label{min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--line);letter-spacing:.08em;font-size:.72rem;text-transform:uppercase;color:var(--blue);cursor:pointer;border-radius:4px;transition:border-color .25s ease,background .25s ease}
+    .choice input{width:auto;min-height:auto;accent-color:var(--blue)}
+    .choice label:has(input:checked){border-color:var(--blue);background:rgba(160,221,254,.12)}
+    .btn.full{width:100%;margin-top:6px}
+    .success{display:none;margin-top:18px;padding:16px;border:1px solid var(--line);background:rgba(160,221,254,.07);color:var(--blue);font-size:.85rem;letter-spacing:.06em}
+    .success.show{display:block;animation:pop .4s ease both}
+    .note{margin:22px 0 0;color:var(--blue-dim);font-size:.72rem;letter-spacing:.08em}
+    @media(max-width:520px){.form-grid,.choice{grid-template-columns:1fr}}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--line);text-align:center;padding:52px 24px;background:var(--black)}
+    footer .brand{justify-content:center;max-width:none}
+    footer p{color:var(--blue-dim);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;margin:16px 0 0}
+
+    .demo-badge{position:fixed;left:16px;bottom:16px;z-index:60;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);background:rgba(4,5,10,.82);border:1px solid var(--line);padding:8px 12px;border-radius:4px;backdrop-filter:blur(8px)}
+
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* hero entrance timeline (plays on load) */
+    .hero-title{opacity:0;animation:heroRise 1.3s .25s cubic-bezier(.2,.7,.2,1) forwards}
+    .corner{opacity:0;animation:heroSoft 1.5s ease forwards}
+    .corner.tl{animation-delay:.6s}.corner.tr{animation-delay:.8s}
+    .corner.bl{animation-delay:1s}.corner.br{animation-delay:1.2s}
+    .hero-cta{opacity:0;animation:heroRise 1s 1.45s ease forwards}
+    /* living background — slow drift like the template's video */
+    .hero-media img{animation:kenburns 20s ease-in-out infinite;transform-origin:center 70%}
+    /* parallax layers use the independent translate property so it never fights transform:rotate */
+    [data-parallax]{will-change:translate}
+
+    @keyframes tw{0%,100%{opacity:.2}50%{opacity:.9}}
+    @keyframes heroRise{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+    @keyframes heroSoft{from{opacity:0}to{opacity:1}}
+    @keyframes kenburns{0%{transform:scale(1.05)}50%{transform:scale(1.14) translateY(-2%)}100%{transform:scale(1.05)}}
+    @keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}.star{opacity:.5}.hero-title,.corner,.hero-cta{opacity:1!important}[data-parallax]{translate:none!important}}
+  </style>
+</head>
+<body>
+  <div class="demo-badge">Portfolio Demo</div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#top"><span class="lips">&#128139;</span><span>Nova's<br>Starlit Soirée</span></a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#top">Home</a>
+      <a href="#particulars" class="hide-sm">Details</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" aria-label="Birthday invitation">
+      <div class="stars" id="heroStars" aria-hidden="true"></div>
+      <div class="hero-title">
+        <span class="spk">&#10022; &#10022; &#10022;</span>
+        <h1 class="script">Starlit Night of Nova</h1>
+      </div>
+      <div class="hero-media" aria-hidden="true" data-parallax="-0.05">
+        <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=1000&q=85" alt="">
+      </div>
+      <div class="hero-captions">
+        <p class="corner tl">You Are Cordially Invited To The Thirtieth Birthday Soirée Of Nova Marlowe</p>
+        <p class="corner tr">August 22<br>2026, 8:00 PM</p>
+        <p class="corner bl">48 Marlowe Street,<br>San Francisco, CA 94108</p>
+        <p class="corner br">The Gilded<br>Conservatory</p>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-outline" href="#rsvp">RSVP Now</a>
+      </div>
+    </section>
+
+    <!-- GILDED PARTICULARS -->
+    <section class="particulars" id="particulars">
+      <div class="wrap layout reveal">
+        <div class="glam-photo" data-parallax="-0.08">
+          <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=85" alt="Champagne and celebration">
+        </div>
+        <div class="invite-card">
+          <h3>The Gilded Particulars</h3>
+          <p class="meta">Sat, August 22&nbsp; |&nbsp; The Gilded Conservatory</p>
+          <a class="btn btn-solid" href="#rsvp">RSVP</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- A CHAPTER IN SHIMMER -->
+    <section class="shimmer">
+      <div class="wrap grid reveal">
+        <div class="frame" data-parallax="-0.06">
+          <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=85" alt="Nova in a sequin gown">
+        </div>
+        <div class="txt">
+          <h2 class="script">A Chapter in Shimmer</h2>
+          <div class="spk sparkle-ico">&#10022;</div>
+          <p>For a woman who finds a little magic in every moment, this night is dedicated to celebrating the light and joy Nova brings into our lives. Let's create another beautiful memory together — under the stars, glass in hand.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CELESTIAL GLAMOUR (dress code) -->
+    <section class="celestial">
+      <div class="dome" aria-hidden="true"></div>
+      <div class="stars" id="celStars" aria-hidden="true"></div>
+      <div class="wrap reveal" style="position:relative;z-index:2">
+        <h2 class="section-title script">Celestial Glamour</h2>
+        <div class="divider-star"><span class="sparkle-ico">&#10022;</span></div>
+        <p class="section-sub">Think shimmering silvers, deep velvets, and elegant silhouettes. Embrace the sparkle of the night sky.</p>
+        <div class="scatter">
+          <div class="frame" style="--r:-6deg" data-parallax="-0.07"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=500&q=80" alt="Guest in glamorous attire"></div>
+          <div class="frame" style="--r:4deg;--mt:36px" data-parallax="0.05"><img src="https://images.unsplash.com/photo-1492447166138-50c3889fccb1?auto=format&fit=crop&w=500&q=80" alt="Guest laughing"></div>
+          <div class="frame" style="--r:-3deg" data-parallax="-0.04"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" alt="Guest in evening wear"></div>
+          <div class="frame" style="--r:6deg;--mt:28px" data-parallax="0.08"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Guest portrait"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSTELLATION — final RSVP -->
+    <section class="constellation" id="rsvp">
+      <div class="stars" id="rsvpStars" aria-hidden="true"></div>
+      <div class="wrap reveal" style="position:relative;z-index:2">
+        <h2 class="section-title script">Confirm Your Constellation</h2>
+        <p class="section-sub cap" style="font-size:.72rem">Your presence will make the night truly shine. Kindly respond by August 1st.</p>
+        <div class="rsvp-box">
+          <form id="rsvpForm">
+            <div class="form-grid">
+              <div class="field full"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" placeholder="Your name" required></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+              <div class="field"><label for="guests">Party size</label>
+                <select id="guests" name="guests"><option>Just me</option><option>+1 guest</option><option>+2 guests</option></select>
+              </div>
+              <div class="field full"><label>Will you be there?</label>
+                <div class="choice">
+                  <label><input type="radio" name="attending" value="yes" required> I will attend</label>
+                  <label><input type="radio" name="attending" value="no"> Sending love from afar</label>
+                </div>
+              </div>
+              <div class="field full"><label for="notes">A note or song request for Nova</label><textarea id="notes" name="notes" placeholder="Play this and I'm on the floor..."></textarea></div>
+            </div>
+            <button class="btn btn-outline full" type="submit">Send RSVP</button>
+            <div class="success" id="success" role="status" aria-live="polite"></div>
+          </form>
+          <p class="note">Demo form — responses save to this browser only. A live build can connect to Google Sheets, Airtable, or Supabase.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand"><span class="lips">&#128139;</span><span>Nova's Starlit Soirée</span></div>
+    <p>Celestial Glam · Portfolio Demo</p>
+  </footer>
+
+  <script>
+    // sticky bar
+    const topbar=document.getElementById('topbar');
+    const onScroll=()=>topbar.classList.toggle('solid',window.scrollY>40);
+    window.addEventListener('scroll',()=>requestAnimationFrame(onScroll),{passive:true});
+    onScroll();
+
+    // reveal
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // starfields
+    function makeStars(id,count){
+      const host=document.getElementById(id);
+      if(!host)return;
+      const frag=document.createDocumentFragment();
+      for(let i=0;i<count;i++){
+        const s=document.createElement('span');
+        s.className='star';
+        s.style.left=Math.random()*100+'%';
+        s.style.top=Math.random()*100+'%';
+        const sz=Math.random()*2+1;
+        s.style.width=s.style.height=sz+'px';
+        s.style.animationDelay=(-Math.random()*4)+'s';
+        s.style.opacity=(.3+Math.random()*.6).toFixed(2);
+        frag.appendChild(s);
+      }
+      host.appendChild(frag);
+    }
+    makeStars('heroStars',150);
+    makeStars('celStars',90);
+    makeStars('rsvpStars',70);
+
+    // scroll parallax — background layers drift slower than the page for depth.
+    // Uses the independent `translate` property so it composes with each layer's transform:rotate().
+    const reduceMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(!reduceMotion){
+      const layers=[...document.querySelectorAll('[data-parallax]')].map(el=>({el,sp:parseFloat(el.dataset.parallax)||0}));
+      let ticking=false;
+      function parallax(){
+        const mid=window.innerHeight/2;
+        for(const {el,sp} of layers){
+          const r=el.getBoundingClientRect();
+          const offset=(r.top+r.height/2)-mid;      // distance of layer's centre from viewport centre
+          el.style.translate='0 '+(offset*sp).toFixed(1)+'px';
+        }
+        ticking=false;
+      }
+      window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(parallax);ticking=true;}},{passive:true});
+      window.addEventListener('resize',parallax,{passive:true});
+      parallax();
+    }
+
+    // rsvp demo
+    const form=document.getElementById('rsvpForm');
+    const success=document.getElementById('success');
+    const KEY='novaStarlitRsvp';
+    const saved=localStorage.getItem(KEY);
+    if(saved){try{const d=JSON.parse(saved);success.textContent='Saved on this device — '+d.name+': '+(d.attending==='yes'?'attending':'not attending')+'.';success.classList.add('show');}catch(e){}}
+    form.addEventListener('submit',ev=>{
+      ev.preventDefault();
+      if(!form.reportValidity())return;
+      const d=Object.fromEntries(new FormData(form).entries());
+      localStorage.setItem(KEY,JSON.stringify(d));
+      success.textContent='The stars align — thank you, '+d.name+'. Your RSVP is saved on this device.';
+      success.classList.add('show');
+      form.querySelector('button[type=submit]').textContent='RSVP Saved';
+    });
+  </script>
+</body>
+</html>

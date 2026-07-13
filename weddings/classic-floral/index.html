@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Romantic full-screen wedding invitation RSVP website sample." />
+  <title>Amara & Julien — Wedding Site Sample 1</title>
+  <style>
+    :root{
+      --white:#fffaf3;
+      --cream:#f8efe3;
+      --champagne:#d5a16f;
+      --champagne-dark:#ad7547;
+      --ink:#201a18;
+      --muted:#d8d0c7;
+      --shadow:0 24px 80px rgba(0,0,0,.35);
+      --script:'Brush Script MT','Segoe Script','Snell Roundhand',cursive;
+      --serif:Georgia,'Times New Roman',serif;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#171311;color:var(--white);font-family:var(--sans);overflow-x:hidden}
+    a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit}
+
+    .hero{
+      min-height:100vh;
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+      background:
+        linear-gradient(90deg,rgba(9,12,16,.72),rgba(9,10,10,.38) 45%,rgba(9,7,7,.58)),
+        linear-gradient(180deg,rgba(0,0,0,.14),rgba(0,0,0,.50)),
+        url('https://images.unsplash.com/photo-1525258946800-98cfd641d0de?auto=format&fit=crop&w=2400&q=88') center/cover;
+    }
+    .hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 50% 44%,rgba(255,255,255,.02) 0 12rem,rgba(0,0,0,.10) 25rem,rgba(0,0,0,.34) 48rem);backdrop-filter:blur(2px)}
+    .hero:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+
+    .nav-wrap{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;justify-content:center;padding:34px 22px 0}
+    .nav{width:min(1080px,100%);display:grid;grid-template-columns:260px 1fr;align-items:start;gap:28px}
+    .logo{font-family:var(--script);font-size:1.85rem;line-height:1;color:#fff;text-shadow:0 4px 18px rgba(0,0,0,.32);white-space:nowrap;letter-spacing:.02em;transform:rotate(-2deg)}
+    .menu{display:flex;align-items:flex-start;justify-content:flex-end;gap:25px;font-family:var(--serif);font-size:.76rem;font-weight:700;text-shadow:0 3px 14px rgba(0,0,0,.4)}
+    .menu a{padding:8px 0;opacity:.94;transition:opacity .2s ease,color .2s ease,transform .2s ease}.menu a:hover,.menu a:focus-visible{opacity:1;color:var(--champagne);transform:translateY(-2px);outline:none}
+    .menu .rsvp-link{position:relative;margin-top:-34px;padding:45px 15px 22px;background:var(--champagne);color:#fff;box-shadow:0 14px 24px rgba(0,0,0,.22)}
+    .menu .rsvp-link:after{content:"";position:absolute;left:0;right:0;bottom:-15px;border-left:26px solid transparent;border-right:26px solid transparent;border-top:15px solid var(--champagne)}
+
+    .hero-center{min-height:100vh;display:grid;place-items:center;text-align:center;padding:118px 20px 70px;position:relative;z-index:2}
+    .hero-lockup{transform:translateY(14px)}
+    .couple-photo{width:clamp(176px,18vw,226px);aspect-ratio:1;border-radius:50%;padding:7px;background:rgba(255,255,255,.86);box-shadow:0 26px 85px rgba(0,0,0,.42);margin:0 auto 24px;animation:portraitIn 1.1s ease both}
+    .couple-photo-inner{width:100%;height:100%;border-radius:50%;background:url('https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=800&q=88') center/cover;box-shadow:inset 0 0 0 1px rgba(255,255,255,.64)}
+    .names{margin:0;display:flex;align-items:flex-end;justify-content:center;gap:24px;font-family:var(--script);font-weight:400;line-height:.72;text-shadow:0 9px 32px rgba(0,0,0,.62);animation:fadeUp 1.1s .18s ease both}
+    .names .name{font-size:clamp(5.3rem,10.4vw,10.8rem);letter-spacing:.01em;color:#fff}.names .amp{font-family:var(--serif);font-size:clamp(3.6rem,6vw,6.8rem);font-style:italic;color:var(--champagne);margin-bottom:.12em;text-shadow:0 7px 24px rgba(0,0,0,.42)}
+    .roles{display:flex;align-items:center;justify-content:center;gap:clamp(62px,17vw,255px);margin-top:-1px;font-family:var(--script);font-size:1.18rem;color:rgba(255,250,243,.88);text-shadow:0 5px 18px rgba(0,0,0,.5);animation:fadeUp 1.1s .32s ease both}
+    .scroll-cue{position:absolute;right:28px;bottom:25px;display:grid;gap:10px;justify-items:center;font-size:.64rem;text-transform:uppercase;letter-spacing:.18em;color:rgba(255,255,255,.72);font-weight:800}.mouse{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 8px 24px rgba(0,0,0,.25);position:relative}.mouse:after{content:"↓";position:absolute;inset:0;display:grid;place-items:center;color:var(--champagne-dark);font-size:1.05rem;animation:wheel 1.8s infinite}
+
+    .petal{position:absolute;top:-40px;width:16px;height:22px;border-radius:70% 20% 70% 20%;background:linear-gradient(135deg,rgba(255,233,225,.55),rgba(209,148,138,.36));filter:blur(.1px);z-index:1;animation:fall linear infinite;pointer-events:none}.p1{left:9%;animation-duration:18s;animation-delay:-4s}.p2{left:24%;animation-duration:23s;animation-delay:-11s;transform:scale(.8)}.p3{left:55%;animation-duration:20s;animation-delay:-8s}.p4{left:78%;animation-duration:24s;animation-delay:-15s;transform:scale(1.15)}.p5{left:92%;animation-duration:19s;animation-delay:-2s}
+
+    .nav-wrap,.logo,.menu a,.rsvp-link{transition:all .8s ease}.nav-wrap.smaller{position:fixed;padding:12px 22px;background:rgba(20,16,14,.82);backdrop-filter:blur(14px);box-shadow:0 14px 38px rgba(0,0,0,.22)}.nav-wrap.smaller .logo{font-size:1.5rem}.nav-wrap.smaller .menu a{padding-top:5px;padding-bottom:5px}.nav-wrap.smaller .rsvp-link{margin-top:-12px;padding:25px 15px 16px}.fadeScroll{will-change:opacity,transform}.popup-box{position:fixed;inset:auto 0 0 0;top:-100%;height:100%;z-index:0;opacity:0;overflow-y:auto;background:rgba(255,250,243,.98);color:var(--ink);transition:top .8s ease,opacity .8s ease,z-index .8s step-end}.popup-box.popup-show{top:0;opacity:1;z-index:10000;transition:top .8s ease,opacity .8s ease,z-index 0s}.popup-box.popup-hide{top:-100%;opacity:0}.popup-close{position:fixed;right:28px;top:24px;width:48px;height:48px;border:0;border-radius:50%;background:var(--champagne);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;box-shadow:0 16px 36px rgba(0,0,0,.22);z-index:2}.popup-inner{min-height:100%;display:grid;place-items:center;padding:80px 22px}.popup-card{width:min(920px,100%);display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}.popup-card h2{font-family:var(--script);font-size:clamp(3.8rem,8vw,7rem);font-weight:400;line-height:.85;margin:0;color:#2d2420}.popup-card h3{font-family:var(--serif);font-size:1.2rem;color:var(--champagne-dark);margin:24px 0 8px}.popup-card p{color:#75665d;line-height:1.8}.popup-date{text-align:center;border:1px solid rgba(32,26,24,.13);background:#fff;border-radius:28px;padding:34px;box-shadow:0 20px 55px rgba(67,43,27,.12)}.popup-date strong{display:block;font-family:var(--serif);font-size:clamp(2.3rem,5vw,4.6rem);line-height:.95;color:#2d2420}.popup-date span{display:block;margin-top:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--champagne-dark);font-weight:950;font-size:.76rem}
+
+    section{background:var(--cream);color:var(--ink);padding:88px 22px}.section-inner{width:min(1100px,100%);margin:0 auto}.kicker{margin:0 0 12px;color:var(--champagne-dark);font-size:.78rem;text-transform:uppercase;letter-spacing:.24em;font-weight:950}.title{margin:0;font-family:var(--script);font-size:clamp(3.4rem,8vw,7rem);font-weight:400;line-height:.85;color:#2d2420}.lead{max-width:700px;color:#75665d;line-height:1.8;font-size:1.05rem}.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;margin-top:40px}.story-photo{min-height:500px;border-radius:280px 280px 28px 28px;background:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=88') center/cover;box-shadow:0 24px 70px rgba(67,43,27,.18)}.story-card{padding:44px;border:1px solid rgba(32,26,24,.13);border-radius:28px;background:#fffaf3;box-shadow:0 20px 50px rgba(67,43,27,.08)}.story-card p{color:#75665d;line-height:1.85}.timeline{display:grid;gap:14px;margin-top:28px}.time-item{display:grid;grid-template-columns:96px 1fr;gap:18px;border-top:1px solid rgba(32,26,24,.12);padding-top:16px}.time-item time{font-weight:950;color:var(--champagne-dark)}.time-item h3{margin:0 0 5px;font-family:var(--serif)}.time-item p{margin:0}
+
+    .rsvp-section{background:#1b1614;color:var(--white);position:relative;overflow:hidden}.rsvp-section:before{content:"";position:absolute;inset:0;opacity:.18;background:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=80') center/cover}.rsvp-section .section-inner{position:relative}.rsvp-box{margin-top:38px;display:grid;grid-template-columns:.82fr 1.18fr;border:1px solid rgba(255,255,255,.15);border-radius:30px;overflow:hidden;background:rgba(255,250,243,.08);backdrop-filter:blur(14px);box-shadow:0 26px 90px rgba(0,0,0,.32)}.rsvp-copy{padding:42px;background:rgba(0,0,0,.2);display:flex;flex-direction:column;justify-content:flex-end;min-height:560px}.rsvp-copy h2{font-family:var(--script);font-size:clamp(3.4rem,7vw,6rem);font-weight:400;line-height:.85;margin:0}.rsvp-copy p{color:rgba(255,250,243,.74);line-height:1.8}.form{padding:38px;background:rgba(255,250,243,.94);color:var(--ink)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:grid;gap:8px;margin-bottom:15px}.full{grid-column:1/-1}label{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:950;color:#856e5e}input,select,textarea{width:100%;min-height:52px;border:1px solid rgba(32,26,24,.14);border-radius:6px;background:#fff;padding:13px 14px;outline:none}textarea{min-height:112px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--champagne);box-shadow:0 0 0 4px rgba(213,161,111,.15)}.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice label{min-height:56px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(32,26,24,.14);background:#fff;color:var(--ink);letter-spacing:0;text-transform:none;font-size:.94rem}.choice input{width:auto;min-height:auto;accent-color:var(--champagne-dark)}.btn{min-height:52px;border:0;background:var(--champagne);color:#fff;padding:0 22px;font-weight:950;cursor:pointer;box-shadow:0 14px 28px rgba(173,117,71,.22)}.success{display:none;margin-top:16px;padding:16px;background:rgba(66,116,79,.12);border:1px solid rgba(66,116,79,.32);color:#315b3a;font-weight:800}.success.show{display:block;animation:pop .4s ease both}
+
+    footer{padding:34px 22px;background:#111;color:rgba(255,255,255,.72);text-align:center}.footer-logo{font-family:var(--script);font-size:2.4rem;color:#fff}
+    .reveal{opacity:0;transform:translateY(26px);filter:blur(8px);transition:opacity .8s ease,transform .8s ease,filter .8s ease}.reveal.visible{opacity:1;transform:none;filter:none}
+    @keyframes portraitIn{from{opacity:0;transform:translateY(22px) scale(.88)}to{opacity:1;transform:none}}@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}@keyframes wheel{0%{opacity:.25;transform:translateY(-3px)}50%{opacity:1;transform:translateY(3px)}100%{opacity:.25;transform:translateY(-3px)}}@keyframes fall{0%{opacity:0;transform:translate3d(0,-10vh,0) rotate(0)}10%{opacity:.85}100%{opacity:0;transform:translate3d(72px,108vh,0) rotate(520deg)}}@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+
+    @media(max-width:900px){.nav{grid-template-columns:1fr;justify-items:center}.menu{gap:14px;flex-wrap:wrap;justify-content:center}.menu .rsvp-link{margin-top:0;padding:8px 14px;border-radius:999px}.menu .rsvp-link:after{display:none}.hero-center{padding-top:190px}.names{gap:10px;flex-wrap:wrap}.roles{gap:90px}.story-grid,.rsvp-box,.popup-card{grid-template-columns:1fr}.rsvp-copy{min-height:360px}.story-photo{min-height:380px}.form-grid,.choice{grid-template-columns:1fr}}
+    @media(max-width:560px){.nav-wrap{padding-top:22px}.logo{font-size:1.62rem}.menu{font-size:.72rem;gap:10px}.hero-center{padding-top:205px}.couple-photo{width:154px}.names .name{font-size:4.7rem}.names .amp{font-size:3rem}.roles{gap:58px;font-size:1rem}.date-line{font-size:.68rem;letter-spacing:.08em;gap:8px}.date-line:before,.date-line:after{width:18px}.title{font-size:4rem}.story-card,.form,.rsvp-copy{padding:28px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.petal{display:none}.reveal{opacity:1;transform:none;filter:none}}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="popup-box popup-hide" id="popupBox" aria-hidden="true">
+      <button class="popup-close" id="popupClose" type="button" aria-label="Close RSVP invitation">×</button>
+      <div class="popup-inner">
+        <div class="popup-card">
+          <div>
+            <p class="kicker">We Invite You</p>
+            <h2>Wedding Day</h2>
+            <h3>Wedding Ceremony</h3>
+            <p>5:15 PM · Olive House Estate, Napa Valley</p>
+            <h3>Reception</h3>
+            <p>6:00 PM · Dinner, speeches, live music, and dancing.</p>
+            <a class="btn" href="#rsvp" id="popupRsvp">Continue to RSVP Form</a>
+          </div>
+          <div class="popup-date">
+            <span>Saturday</span>
+            <strong>21<br>September<br>2026</strong>
+            <p>Join Amara and Julien as they celebrate their wedding with family and friends.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="hero" id="home" aria-label="Wedding invitation hero">
+      <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div>
+      <header class="nav-wrap" id="siteNav">
+        <div class="nav">
+          <a class="logo" href="#home">Amara & Julien</a>
+          <nav class="menu" aria-label="Primary navigation">
+            <a href="#home">Home</a><a href="#about">About</a><a href="#story">Story</a><a href="#events">Events</a><a href="#people">People</a><a href="#gallery">Gallery</a><a href="#journal">Journal</a><a class="rsvp-link btn-rsvp" href="#rsvp">RSVP</a>
+          </nav>
+        </div>
+      </header>
+      <div class="hero-center fadeScroll" data-scroll-speed="4">
+        <div class="hero-lockup">
+          <div class="couple-photo" aria-label="Circular couple portrait"><div class="couple-photo-inner"></div></div>
+          <h1 class="names" aria-label="Amara and Julien"><span class="name">Amara</span><span class="amp" data-scroll-speed="2">&</span><span class="name">Julien</span></h1>
+          <div class="roles"><span>Bride</span><span>Groom</span></div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#story" aria-label="Scroll to story"><span class="mouse"></span><span>Scroll</span></a>
+    </section>
+
+    <section id="story">
+      <div class="section-inner reveal">
+        <p class="kicker">Our Story</p>
+        <h2 class="title">A romantic beginning, framed with timeless elegance.</h2>
+        <p class="lead">This first sample focuses on a classic wedding-template style: full-screen floral imagery, a centered circular couple portrait, elegant script names, and a warm RSVP experience.</p>
+        <div class="story-grid">
+          <div class="story-photo" role="img" aria-label="Wedding couple portrait"></div>
+          <article class="story-card">
+            <p>Amara and Julien met through friends, stayed for the conversation, and built a love story around small rituals, shared playlists, quiet dinners, and big dreams.</p>
+            <p>Now their wedding site gives guests a polished destination for the date, location, event details, and RSVP.</p>
+            <div class="timeline" id="events">
+              <div class="time-item"><time>4:30 PM</time><div><h3>Guest Arrival</h3><p>Welcome drinks and seating.</p></div></div>
+              <div class="time-item"><time>5:15 PM</time><div><h3>Ceremony</h3><p>Vows surrounded by florals and family.</p></div></div>
+              <div class="time-item"><time>6:00 PM</time><div><h3>Reception</h3><p>Dinner, speeches, music, and dancing.</p></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp-section" id="rsvp">
+      <div class="section-inner reveal">
+        <p class="kicker">Form RSVP</p>
+        <h2 class="title" style="color:#fff">Kindly reply by August 15.</h2>
+        <div class="rsvp-box">
+          <aside class="rsvp-copy">
+            <h2>Celebrate with us.</h2>
+            <p>Demo RSVP responses save locally in the browser. A live version can connect to Airtable, Google Sheets, Supabase, or a custom dashboard.</p>
+          </aside>
+          <form class="form" id="rsvpForm">
+            <div class="form-grid">
+              <div class="field"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" placeholder="Your name" required></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+              <div class="field full"><label>Will you attend?</label><div class="choice"><label><input type="radio" name="attending" value="yes" required> Joyfully accepts</label><label><input type="radio" name="attending" value="no"> Regretfully declines</label></div></div>
+              <div class="field"><label for="guests">Guests</label><select id="guests" name="guests"><option>1 guest</option><option>2 guests</option><option>3 guests</option><option>4 guests</option></select></div>
+              <div class="field"><label for="meal">Meal preference</label><select id="meal" name="meal"><option>Chicken</option><option>Fish</option><option>Vegetarian</option><option>Vegan</option></select></div>
+              <div class="field full"><label for="notes">Notes</label><textarea id="notes" name="notes" placeholder="Dietary notes or song request"></textarea></div>
+            </div>
+            <button class="btn" type="submit">Send RSVP</button>
+            <div class="success" id="success" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="footer-logo">Amara & Julien</div><p>Wedding Site Sample 1 · Original portfolio demo</p></footer>
+  <script>
+    const nav=document.getElementById('siteNav');
+    const fadeTarget=document.querySelector('.fadeScroll');
+    const speedItems=document.querySelectorAll('[data-scroll-speed]');
+    const popup=document.getElementById('popupBox');
+    const popupClose=document.getElementById('popupClose');
+    const popupRsvp=document.getElementById('popupRsvp');
+
+    function handleReferenceMotion(){
+      const y=window.scrollY;
+      nav.classList.toggle('smaller', y>90);
+      if(fadeTarget){
+        const h=fadeTarget.offsetHeight || window.innerHeight;
+        const opacity=Math.max(0, Math.min(1, (h-y)/h));
+        fadeTarget.style.opacity=opacity.toFixed(3);
+      }
+      speedItems.forEach(el=>{
+        const speed=Number(el.dataset.scrollSpeed || 4);
+        const offset=y/speed;
+        if(el.classList.contains('fadeScroll')){
+          el.style.transform=`translateY(${offset}px)`;
+        }else{
+          el.style.transform=`translateY(${offset}px)`;
+        }
+      });
+    }
+
+    window.addEventListener('scroll',()=>requestAnimationFrame(handleReferenceMotion),{passive:true});
+    handleReferenceMotion();
+
+    function openPopup(event){
+      if(event) event.preventDefault();
+      popup.classList.add('popup-show');
+      popup.classList.remove('popup-hide');
+      popup.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+    function closePopup(){
+      popup.classList.add('popup-hide');
+      popup.classList.remove('popup-show');
+      popup.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+    document.querySelectorAll('.btn-rsvp').forEach(btn=>btn.addEventListener('click',openPopup));
+    popupClose.addEventListener('click',closePopup);
+    popupRsvp.addEventListener('click',closePopup);
+    document.addEventListener('keydown',event=>{if(event.key==='Escape') closePopup();});
+
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')}),{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    const form=document.getElementById('rsvpForm');
+    const success=document.getElementById('success');
+    const saved=localStorage.getItem('weddingSampleOneRsvp');
+    if(saved){const data=JSON.parse(saved);success.textContent=`Saved demo RSVP for ${data.name}: ${data.attending==='yes'?'attending':'not attending'}.`;success.classList.add('show')}
+    form.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;const data=Object.fromEntries(new FormData(form).entries());localStorage.setItem('weddingSampleOneRsvp',JSON.stringify(data));success.textContent=`Thank you, ${data.name}. Your demo RSVP has been saved on this device.`;success.classList.add('show');form.querySelector('button').textContent='RSVP Saved'});
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Tooling / internal working notes (not part of the deployed site)
+.claude/
+CLAUDE.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Old rough draft + its zip (kept locally, not published)
+wedding site sample 1/
+wedding site sample 1.zip
