@@ -76,11 +76,11 @@
     .hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate;
       background:radial-gradient(120% 90% at 50% 8%,#fbf6ee 0%,var(--ivory) 42%,var(--greige) 100%)}
     /* full-bleed luxe photo that parallax-pins & zooms on scroll (JS-driven); clipped by hero overflow */
-    .hero-bg{position:absolute;inset:-14%;z-index:0;pointer-events:none;
+    .hero-bg{position:absolute;inset:-10%;z-index:0;pointer-events:none;
       background:#d9cbba center 42%/cover no-repeat;
       background-image:url("img/hero.jpg");
       filter:saturate(1.02) contrast(1.02) brightness(1.03);
-      transform:scale(1.06);transform-origin:50% 45%;will-change:transform}
+      transform:scale(1.0);transform-origin:50% 45%;will-change:transform}
     /* ivory veil keeps the airy palette & readable cocoa type over the photo */
     .hero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;
       background:
@@ -602,7 +602,7 @@
         const S=window.scrollY, h=heroEl.offsetHeight||innerHeight;
         if(S<=h*1.05){
           const p=Math.min(Math.max(S/h,0),1);
-          heroBg.style.transform=`translateY(${(S*0.34).toFixed(1)}px) scale(${(1.06+p*0.42).toFixed(3)})`;
+          heroBg.style.transform=`translateY(${(S*0.28).toFixed(1)}px) scale(${(1.0+p*0.30).toFixed(3)})`;
         }
         hticking=false;
       };
